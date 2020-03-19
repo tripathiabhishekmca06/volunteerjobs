@@ -2,10 +2,7 @@
 <%@ include file="common/navigation.jspf"%>
 
 <style>
-    body {
-        margin: 0;
-        padding: 20px;
-    }
+    
     .p_0 {
         padding: 0;
     }
