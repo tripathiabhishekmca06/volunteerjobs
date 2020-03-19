@@ -1,15 +1,18 @@
 package net.guides.springboot.todomanagement;
 
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-/*@Configuration*/
+@Configuration
 public class WebApplicationConfig implements WebMvcConfigurer {/*
 
 @Override
@@ -26,4 +29,27 @@ public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> container
     };
   }
 
-*/}
+*/
+	
+	@Bean
+    public SimpleUrlHandlerMapping customFaviconHandlerMapping() {
+        SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
+        mapping.setOrder(Integer.MIN_VALUE);
+        mapping.setUrlMap(Collections.singletonMap(
+          "/favicon.ico", faviconRequestHandler()));
+        return mapping;
+    }
+ 
+    @Bean
+    protected ResourceHttpRequestHandler faviconRequestHandler() {
+        ResourceHttpRequestHandler requestHandler
+          = new ResourceHttpRequestHandler();
+        ClassPathResource classPathResource 
+          = new ClassPathResource("images");
+        List<Resource> locations = Arrays.asList(classPathResource);
+        requestHandler.setLocations(locations);
+        return requestHandler;
+    }
+
+
+}

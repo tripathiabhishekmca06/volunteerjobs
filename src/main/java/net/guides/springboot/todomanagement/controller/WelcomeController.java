@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(path = "/demo")
 public class WelcomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -16,6 +17,10 @@ public class WelcomeController {
 		return "redirect:/volunteerJobs";
 	}
 
+	 @RequestMapping(path = "/hello", method = RequestMethod.GET)
+	    public String hello(){
+	        return "success...";
+	    }
 	private String getLoggedinUserName() {
 		Object principal = SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();

@@ -3,6 +3,7 @@ package net.guides.springboot.todomanagement.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import net.guides.springboot.todomanagement.model.PagerModel;
@@ -150,8 +153,15 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value = "/view-volunteerJob", method = RequestMethod.GET)
-	public String showTodoPage(@RequestParam long id, ModelMap model) {
-		VolunteerJob volunteerJob = volunteerJobService.getVolunteerJobById(id).get();
+	public String showTodoPage(@RequestParam String id, ModelMap model) {
+		Optional<VolunteerJob> vol= volunteerJobService.getVolunteerJobByJobId(id);
+		if(vol==null || !vol.isPresent())
+		{
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, "entity not found"
+					);	
+		}
+		VolunteerJob volunteerJob = vol.get();
 		model.put("volunteerJob", volunteerJob);
 		return "volunteerJobView";
 	}

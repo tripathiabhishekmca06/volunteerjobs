@@ -42,6 +42,10 @@ public class VolunteerJobService implements IVolunteerJobService {
 	public Optional<VolunteerJob> getVolunteerJobById(long id) {
 		return todoRepository.findById(id);
 	}
+	@Override
+	public Optional<VolunteerJob> getVolunteerJobByJobId(String id) {
+		return todoRepository.findByJobId(id);
+	}
 
 	@Override
 	public void updateVolunteerJob(VolunteerJob todo) {

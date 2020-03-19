@@ -33,4 +33,7 @@ public interface IVolunteerJobService {
 
 	Page<VolunteerJob> findAll(PageRequest pageRequest);
 
+	
+	Optional<VolunteerJob> getVolunteerJobByJobId(String id);
+
 }
