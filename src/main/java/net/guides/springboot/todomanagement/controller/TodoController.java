@@ -17,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import net.guides.springboot.todomanagement.model.PagerModel;
 import net.guides.springboot.todomanagement.model.VolunteerJob;
@@ -219,5 +221,15 @@ public class TodoController {
 	}
 	*/
 	
+	 @ExceptionHandler(NoHandlerFoundException.class)
+	    public String handle(Exception ex) {
+	        return "redirect:/404";
+	    }
+
+	    @RequestMapping(value = {"/404"}, method = RequestMethod.GET)
+	    public String NotFoudPage() {
+	        return "redirect:/volunteerJobs";
+
+	    }
 	
 }

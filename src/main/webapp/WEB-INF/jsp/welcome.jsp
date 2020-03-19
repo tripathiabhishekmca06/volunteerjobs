@@ -5,8 +5,8 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">Home Page</div>
 		<div class="panel-body">
-			Welcome ${name}!! <a href="/list-todos">Click here</a> to manage your
-			todo's.
+			Welcome ${name}!! <a href="/covid19/volunteerJobs">Click here</a> to manage your
+			Openings.
 		</div>
 	</div>
 </div>
