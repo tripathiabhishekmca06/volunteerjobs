@@ -83,7 +83,8 @@ public class VolunteerJobService implements IVolunteerJobService {
 		VolunteerJob volunteerJob= todoRepository.findById(id).get();
 		 
    String url =  otpDns +"/v0/token/send";
-	RestTemplate restTemplate = new RestTemplate();
+
+   RestTemplate restTemplate = new RestTemplate();
 	HttpHeaders headers = new HttpHeaders();
 	headers.set("appid", "100");
 	headers.set("systemid", "jobseeker");
@@ -131,7 +132,7 @@ public class VolunteerJobService implements IVolunteerJobService {
 		    volunteerJob.setStatus(1);
 		    todoRepository.save(volunteerJob);
 		} else {
-		    System.out.println("Request Failed");
+		    System.out.println("Request Failed:::"+url);
 		    
 		}
 	} catch (RestClientException e) {
@@ -176,7 +177,7 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	if (response !=null && response.getStatusCode().is2xxSuccessful()) {
 		volunteerJob.setStatus(3);
 	} else {
-	    System.out.println("Request Failed");
+	    System.out.println("Request Failed::"+url);
 	    
 	    volunteerJob.setStatus(2);
 	}
