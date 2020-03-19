@@ -141,8 +141,8 @@ word-break: break-word;">${volunteerJob.jobTittle}</td>
 				<div class="v_card">
             <div class="v_header s_padding">
                 <div class="row">
-                    <a href="/covid19/view-volunteerJob?id=${volunteerJob.id}" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 v_jobTitle" title="${volunteerJob.jobTittle}">${volunteerJob.jobTittle}</a>
-                    <a href="/covid19/view-volunteerJob?id=${volunteerJob.id}" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 v_jobId" title="${volunteerJob.jobId}">${volunteerJob.jobId}</a>
+                    <a href="/covid19/view-volunteerJob?id=${volunteerJob.jobId}" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 v_jobTitle" title="${volunteerJob.jobTittle}">${volunteerJob.jobTittle}</a>
+                    <a href="/covid19/view-volunteerJob?id=${volunteerJob.jobId}" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 v_jobId" title="${volunteerJob.jobId}">${volunteerJob.jobId}</a>
                 </div>
             </div>
         

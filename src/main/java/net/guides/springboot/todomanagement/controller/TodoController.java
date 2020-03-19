@@ -47,7 +47,7 @@ public class TodoController {
 	}
 	
 
-	/*@RequestMapping(value = "/list-volunteerJobs", method = RequestMethod.GET)
+	@RequestMapping(value = "/list-volunteerJobs", method = RequestMethod.GET)
 	public String showTodos(@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
 		String name = getLoggedInUserName(model);
 		model.put("selectedPageSize", 1);
@@ -85,7 +85,7 @@ public class TodoController {
 		
 		return "list-volunteerJobs";
 	}
-	*/
+	
 	@RequestMapping(value = "/volunteerJobs", method = RequestMethod.GET)
 	public String volunteerJobs(@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
 		String name = getLoggedInUserName(model);
@@ -225,7 +225,7 @@ public class TodoController {
 		return "redirect:/volunteerJobs";
 	}
 	
-/*	@RequestMapping(value = "/activate-volunteerJob", method = RequestMethod.GET)
+	@RequestMapping(value = "/activate-volunteerJob", method = RequestMethod.GET)
 	public String activateJobOTP(@RequestParam long id) {
 		
 	VolunteerJob  volunteerJob= volunteerJobService.getVolunteerJobById(id).get();
@@ -235,7 +235,7 @@ public class TodoController {
 		// service.deleteTodo(id);
 		return "redirect:/list-volunteerJobs";
 	}
-	*/
+	
 	
 	 @ExceptionHandler(NoHandlerFoundException.class)
 	    public String handle(Exception ex) {
