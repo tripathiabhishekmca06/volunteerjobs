@@ -4,10 +4,12 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3 ">
 			<div class="panel panel-primary">
-				<div class="panel-heading">Add VolunteerJob</div>
+				<div class="panel-heading" id="postJobTittle">Post Volunteer Opening for COVID-19</div>
 				<div class="panel-body">
 					<form:form method="post" modelAttribute="volunteerJob">
-						<form:hidden path="id" />
+						<form:hidden path="id" id="objectId"/>
+						<form:hidden path="jobId"  id="hiddenJobId"/>
+						
 						<fieldset class="form-group">
 							<form:label path="jobTittle">Job Tittle</form:label>
 							<form:input path="jobTittle" type="text" class="form-control"
@@ -51,20 +53,20 @@
 							<form:errors path="workArea" cssClass="text-warning" />
 						</fieldset>
 						<fieldset class="form-group">
-							<form:label path="Timming">Timming</form:label>
+							<form:label path="Timming">Timing</form:label>
 							<form:input path="Timming" type="text" class="form-control"
 								required="required" />
 							<form:errors path="Timming" cssClass="text-warning" />
 						</fieldset>
 						<fieldset class="form-group">
-							<form:label path="jobDetails" >Job details</form:label>
+							<form:label path="jobDetails" >Job Details</form:label>
 							<form:input path="jobDetails" id="jobDetails"  class="form-control"
 								required="required" type="hidden" />
 								 <div id="editableJobDetails" contenteditable="true"></div> 
 							<form:errors path="jobDetails" cssClass="text-warning" />
 						</fieldset>
 <fieldset class="form-group">
-							<form:label path="skills">Skills</form:label>
+							<form:label path="skills">Desired Skills</form:label>
 							 <form:input path="skills" id="skills" type="text" class="form-control"
 								required="required" /> 
 							<form:errors path="skills" cssClass="text-warning" />
@@ -82,8 +84,9 @@
 								 />
 							<form:errors path="expiryDate" cssClass="text-warning" />
 						</fieldset> --%>
-						
-						<button type="submit" class="btn btn-success">Save With OTP Verification</button>
+						<button type="submit" id="submitBttn" class="btn btn-success" disabled="true">Save With OTP Verification</button>
+						<form:checkbox path="acceptTerm" id="acceptTerm" onclick="acceptTermFunction()"/>  
+					<a href="https://www.naukri.com/termsconditions" target="_blank">Naukri Terms and conditions </a>
 					</form:form>
 				</div>
 			</div>
@@ -106,9 +109,25 @@ document.getElementById("editableJobDetails").addEventListener("input",
 	
 document.getElementById("primaryPhoneNumber").addEventListener("input",
 		function() {
-	     var editableContactContent = document.getElementById("primaryPhoneNumber").innerHTML;
+	     var editableContactContent = document.getElementById("primaryPhoneNumber").value;
 	     document.getElementById("alternativePhoneNumber").value = editableContactContent;
 	}, false);
+	
+function acceptTermFunction() {
+	  var checkBox = document.getElementById("acceptTerm");
+	  if (checkBox.checked == true){
+		  document.getElementById("submitBttn").disabled = false;
+
+	  } else {
+		  document.getElementById("submitBttn").disabled = true;
+
+	  }
+	}
+	
+window.onload = function() {
+	if(document.getElementById("hiddenJobId").value!="")
+	document.getElementById("postJobTittle").innerHTML="Update Posted Job :"+document.getElementById("hiddenJobId").value;
+	};
 </script>
 
 <style>

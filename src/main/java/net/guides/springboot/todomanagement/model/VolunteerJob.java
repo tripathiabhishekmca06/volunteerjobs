@@ -37,7 +37,13 @@ import javax.persistence.Table;
 	private String jobId;
 	private int status;
 	private String strStatus;
-	
+	private boolean acceptTerm;
+	public boolean isAcceptTerm() {
+		return acceptTerm;
+	}
+	public void setAcceptTerm(boolean acceptTerm) {
+		this.acceptTerm = acceptTerm;
+	}
 	public String getStrStatus() {
 		if(this.status==0)
 			return "inactive";

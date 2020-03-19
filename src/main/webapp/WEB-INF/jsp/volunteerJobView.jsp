@@ -4,7 +4,7 @@
 	<div class="row" style="width: 1170px;">
 		<div class="col-md-6 col-md-offset-3 ">
 			<div class="panel panel-primary">
-				<div class="panel-heading" id="pageTiteTxt">Volunteer Job</div>
+				<div class="panel-heading" id="pageTiteTxt">Volunteer Openings</div>
 				<div class="panel-body">
 					<form:form method="post" modelAttribute="volunteerJob">
 						<form:hidden path="id"  id="hiddenJobId"/>
@@ -17,11 +17,20 @@
 						
 						
 						<fieldset class="form-group">
-							<form:label path="primaryPhoneNumber">Contact</form:label>
+							<form:label path="primaryPhoneNumber">Contact  (Visible to JobSeeker)</form:label>
 							<form:input path="primaryPhoneNumber" type="text" class="form-control"
 								readonly="readonly" disabled="true" />
 							<form:errors path="primaryPhoneNumber" cssClass="text-warning" />
 						</fieldset>
+						
+						<fieldset class="form-group">
+							<form:label path="alternativePhoneNumber">Contact (For OTP Verification)</form:label>
+							<form:input path="alternativePhoneNumber" type="text" class="form-control"
+								readonly="readonly" disabled="true" />
+							<form:errors path="alternativePhoneNumber" cssClass="text-warning" />
+						</fieldset>
+						
+						
 						<fieldset class="form-group">
 							<form:label path="email">Email</form:label>
 							<form:input path="email" type="text" class="form-control"
@@ -44,7 +53,7 @@
 							<form:errors path="workArea" cssClass="text-warning" />
 						</fieldset>
 						<fieldset class="form-group">
-							<form:label path="Timming">Timming</form:label>
+							<form:label path="Timming">Timing</form:label>
 							<form:input path="Timming" type="text" class="form-control"
 								readonly="readonly" disabled="true" />
 							<form:errors path="Timming" cssClass="text-warning" />
@@ -58,7 +67,7 @@
 							<form:errors path="jobDetails" cssClass="text-warning" />
 						</fieldset>
 <fieldset class="form-group">
-							<form:label path="skills">skills</form:label>
+							<form:label path="skills">Desired Skills</form:label>
 							 <form:input path="skills" id="skills" type="text" class="form-control"
 								readonly="readonly" disabled="true" /> 
 								
@@ -92,6 +101,8 @@
 document.getElementById("editableJobDetails").innerHTML = document.getElementById("jobDetails").value; 
 
 document.getElementById("pageTiteTxt").innerHTML = " COVID-19:"+document.getElementById("id_jobTittle").value; 
+document.title = "COVID-19:"+document.getElementById("id_jobTittle").value;
+
 </script>
 
 

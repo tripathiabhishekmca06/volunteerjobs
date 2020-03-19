@@ -5,7 +5,7 @@
 
 
 <head>
-<title>Todo Management</title>
+<title id="pageHeaderTittle">Volunteer Jobs for COVID-19</title>
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 
@@ -22,6 +22,14 @@
 }
 </style>
 
+</head>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Want to volunteer too help crub the spread of COVID-19, find organisations looking for volumteers here. Help spread awareness and stop the pandemic">
+  <meta name="keywords" content="naukri,COVID-19,volunteer,corona,Info edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Naukri">
 </head>
 
 <body>
