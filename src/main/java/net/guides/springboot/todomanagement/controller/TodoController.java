@@ -201,8 +201,7 @@ public class TodoController {
 	public String verifyJob(@RequestParam long id, ModelMap model) {
 		
 	
-			volunteerJobService.verifyJob(id);
-			VolunteerJob volunteerJob = volunteerJobService.getVolunteerJobById(id).get();
+		VolunteerJob volunteerJob =	volunteerJobService.verifyJob(id);
 		VolunteerJobOtp volunteerJobOtp= new VolunteerJobOtp();
 		volunteerJobOtp.setId(volunteerJob.getId());
 		volunteerJobOtp.setJobId(volunteerJob.getJobId());

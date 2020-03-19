@@ -28,6 +28,11 @@ import javax.persistence.Table;
 	private String jobSearchTokens;
 	
 	
+	@Override
+	public String toString() {
+		return "VolunteerJob [id=" + id + ", jobId=" + jobId + ", status=" + status + ", primaryPhoneNumber="
+				+ primaryPhoneNumber + ", alternativePhoneNumber=" + alternativePhoneNumber + "]";
+	}
 	private int otpRetryCount;
 	
 	public int getOtpRetryCount() {
