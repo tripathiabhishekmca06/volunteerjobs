@@ -154,6 +154,17 @@ function acceptTermFunction() {
 	}
 	
 window.onload = function() {
+	
+	 var checkBox = document.getElementById("acceptTerm");
+	  if (checkBox.checked == true){
+		  document.getElementById("submitBttn").disabled = false;
+
+	  } else {
+		  document.getElementById("submitBttn").disabled = true;
+
+	  }
+	  
+	  
 	if(document.getElementById("hiddenJobId").value!="")
 	document.getElementById("postJobTittle").innerHTML="Update Posted Job :"+document.getElementById("hiddenJobId").value;
 	};
