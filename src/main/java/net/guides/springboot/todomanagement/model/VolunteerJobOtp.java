@@ -2,6 +2,13 @@ package net.guides.springboot.todomanagement.model;
 
 public class VolunteerJobOtp {
 	
+	@Override
+	public String toString() {
+		return "VolunteerJobOtp [id=" + id + ", jobId=" + jobId + ", jobTittle=" + jobTittle + ", otp=" + otp
+				+ ", otpSend=" + otpSend + ", otpRetryCount=" + otpRetryCount + ", maskedMobileForOtp="
+				+ maskedMobileForOtp + "]";
+	}
+
 	private long id;
 	
 	private String jobId;
@@ -11,6 +18,26 @@ public class VolunteerJobOtp {
 	private String otp;
 	
 	private String otpSend;
+	
+	private int otpRetryCount=0;
+	
+	private String maskedMobileForOtp;
+
+	public String getMaskedMobileForOtp() {
+		return maskedMobileForOtp;
+	}
+
+	public void setMaskedMobileForOtp(String maskedMobileForOtp) {
+		this.maskedMobileForOtp = maskedMobileForOtp;
+	}
+
+	public int getOtpRetryCount() {
+		return otpRetryCount;
+	}
+
+	public void setOtpRetryCount(int otpRetryCount) {
+		this.otpRetryCount = otpRetryCount;
+	}
 
 	public String getOtpSend() {
 		return otpSend;

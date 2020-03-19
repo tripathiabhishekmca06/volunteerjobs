@@ -186,8 +186,8 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	    System.out.println("Request Failed for post::"+url);
 	    
 	    volunteerJob.setStatus(2);
+	    volunteerJob.setOtpRetryCount(volunteerJob.getOtpRetryCount()+1);
 	}
-	
 	todoRepository.save(volunteerJob);
 	return false;
 	}

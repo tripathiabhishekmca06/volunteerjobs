@@ -27,6 +27,15 @@ import javax.persistence.Table;
 	  @Column( length = 1000 )
 	private String jobSearchTokens;
 	
+	
+	private int otpRetryCount;
+	
+	public int getOtpRetryCount() {
+		return otpRetryCount;
+	}
+	public void setOtpRetryCount(int otpRetryCount) {
+		this.otpRetryCount = otpRetryCount;
+	}
 	public String getJobSearchTokens() {
 		return jobSearchTokens;
 	}
