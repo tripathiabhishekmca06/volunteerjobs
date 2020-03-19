@@ -203,25 +203,25 @@ word-break: break-word;">${volunteerJob.jobTittle}</td>
 					<ul class="pagination">
 						<li ><a
 							class="pageLink"
-							href="/covid19/volunteerJobs?pageNo=0">&laquo;</a>
+							href="/covid19/list-volunteerJobs?pageNo=0">&laquo;</a>
 						</li>
 						<li><a
 							class="pageLink"
-							href="/covid19/volunteerJobs?pageNo=${prePageIndex}">&larr;</a>
+							href="/covid19/list-volunteerJobs?pageNo=${prePageIndex}">&larr;</a>
 						</li>
 					
 					<c:forEach items="${pageIndex}" var="index">
-    <li ><a href="/covid19/volunteerJobs?pageNo=${index}">${index}</a></li>
+    <li ><a href="/covid19/list-volunteerJobs?pageNo=${index}">${index}</a></li>
     </c:forEach>	
 						<li
 							>
 							<a class="pageLink"
-							href="/covid19/volunteerJobs?pageNo=${nextPageIndex}">&rarr;</a>
+							href="/covid19/list-volunteerJobs?pageNo=${nextPageIndex}">&rarr;</a>
 						</li>
 						<li
 							>
 							<a class="pageLink"
-							href="/covid19/volunteerJobs?pageNo=${lastPageIndex}">&raquo;</a>
+							href="/covid19/list-volunteerJobs?pageNo=${lastPageIndex}">&raquo;</a>
 						</li>
 					</ul>
 				</div>

@@ -6,10 +6,14 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading" id="otp_header">Enter OTP Received on provided contact</div>
 				<div class="panel-body">
-					<form:form method="post" modelAttribute="volunteerJobOtp">
+					<form:form method="post" modelAttribute="volunteerJobOtp" id="myForm">
 						<form:hidden path="id" id="obj_id"/>
 						<form:hidden path="otpSend" id="obj_otpSend"/>
+
+						<form:hidden path="otpRetryCount" id="otpRetryCount"/>
 						
+						<form:hidden path="maskedMobileForOtp" id="maskedMobileForOtp"/>
+
 						<fieldset class="form-group">
 							<form:label path="jobId">Job Id</form:label>
 							<form:input path="jobId" type="text" class="form-control"
@@ -33,8 +37,10 @@
 								required="required" id="otpId"/>
 							<form:errors path="otp" cssClass="text-warning" />
 						</fieldset>
-						<button type="submit" class="btn btn-success" id="submitBttonId">Save</button>
-						
+					<!-- 	<button type="submit" class="btn btn-success" id="submitBttonId">Save</button>
+					 -->	<a type="button" class="btn btn-success" id="submitBttonId" onclick="handleForm()">Submit</a>
+
+<a type="button" href="/covid19/volunteerJobs" id="redirectBttonId" ></a>
 						<p class="otpStaticInformation">If you don't receive OTP Please contact to xxxxxxxxxx or xxxx@xxxx.com.</p>
 						
 					</form:form>
@@ -60,7 +66,22 @@
 
 <script>
 
+
+
+function handleForm() {
+
+	if(document.getElementById("obj_otpSend").value=="1" || document.getElementById("submitBttonId").innerHTML=="View All Openings"){
+		
+		document.getElementById('redirectBttonId').click();
+	}else
+		{
+		document.getElementById('myForm').submit();
+		}
+	
+	
+	}
  window.onload = function() {
+	 
 	if(document.getElementById("obj_otpSend").value=="1"){
 	document.getElementById("otp_header").innerHTML="OTP Verification was successfull";
 	document.getElementById("otpId").disabled=true;
@@ -70,8 +91,38 @@
 
 	document.getElementById("form_otp").setAttribute("display","hidden");
 	document.getElementById("submitBttonId").innerHTML="View All Openings";
+	
 	}
+	else
+		{
+		document.getElementById("otp_header").innerHTML="Enter OTP Received on "+document.getElementById("maskedMobileForOtp").value;	
+		if(document.getElementById("otpRetryCount").value=="1"){
+			document.getElementById("otp_header").innerHTML=document.getElementById("otp_header").innerHTML+" (Second Retry)";
+		}
+		
+		if(document.getElementById("otpRetryCount").value=="2"){
+			document.getElementById("otp_header").innerHTML=document.getElementById("otp_header").innerHTML+" (Third Retry)";
+		}
+		
+	
+		 if(document.getElementById("otpRetryCount").value!="2" && document.getElementById("otpRetryCount").value!="1" && document.getElementById("otpRetryCount").value!="0"){
+		
+			 document.getElementById("otp_header").innerHTML="No More OTP Verification Attempts";
+				document.getElementById("otpId").disabled=true;
+				document.getElementById("form_otp").classList.add("v_dispNone");
+				document.getElementsByClassName("otpStaticInformation")[0].classList.add("v_dispNone");
+
+				document.getElementById("form_otp").setAttribute("display","hidden");
+				document.getElementById("submitBttonId").innerHTML="View All Openings";
+		 
+		 }
+		
+		
+		
+		}
 	}; 
+	
+	
       </script>
 
 <%@ include file="common/footer.jspf"%>

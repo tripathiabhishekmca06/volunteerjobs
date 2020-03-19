@@ -27,7 +27,7 @@ public interface IVolunteerJobService {
 
 	List<VolunteerJob> getVolunteerJobsByUser(String user);
 
-	void verifyJob(long id);
+	VolunteerJob verifyJob(long id);
 
 	boolean verifyJobOTP(long id, String otp);
 

@@ -136,10 +136,10 @@ document.getElementById("editableJobDetails").addEventListener("input",
 	
 	
 	
-document.getElementById("primaryPhoneNumber").addEventListener("input",
+document.getElementById("alternativePhoneNumber").addEventListener("input",
 		function() {
-	     var editableContactContent = document.getElementById("primaryPhoneNumber").value;
-	     document.getElementById("alternativePhoneNumber").value = editableContactContent;
+	     var editableContactContent = document.getElementById("alternativePhoneNumber").value;
+	     document.getElementById("primaryPhoneNumber").value = editableContactContent;
 	}, false);
 	
 function acceptTermFunction() {

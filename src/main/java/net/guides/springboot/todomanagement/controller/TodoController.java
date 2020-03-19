@@ -201,16 +201,19 @@ public class TodoController {
 	public String verifyJob(@RequestParam long id, ModelMap model) {
 		
 	
-		volunteerJobService.verifyJob(id);
-
-		VolunteerJob volunteerJob = volunteerJobService.getVolunteerJobById(id).get();
+		VolunteerJob volunteerJob =	volunteerJobService.verifyJob(id);
 		VolunteerJobOtp volunteerJobOtp= new VolunteerJobOtp();
 		volunteerJobOtp.setId(volunteerJob.getId());
 		volunteerJobOtp.setJobId(volunteerJob.getJobId());
 		volunteerJobOtp.setJobTittle(volunteerJob.getJobTittle());
 		if(volunteerJob.getStatus()>2)
 		volunteerJobOtp.setOtpSend("1");
+		
+		
+		volunteerJobOtp.setOtpRetryCount(volunteerJob.getOtpRetryCount());
+		volunteerJobOtp.setMaskedMobileForOtp(("xxxxxx"+(volunteerJob.getAlternativePhoneNumber()%10000)));
 		model.put("volunteerJobOtp", volunteerJobOtp);
+		System.out.println(volunteerJobOtp.toString());
 		
 		return "volunteerJobOtp";
 		
@@ -222,7 +225,7 @@ public class TodoController {
 		boolean verfied=volunteerJobService.verifyJobOTP(id,otp);
 		
 		// service.deleteTodo(id);
-		return "redirect:/volunteerJobs";
+		return "redirect:/verify-volunteerJobOtp?id="+id;
 	}
 	
 	@RequestMapping(value = "/activate-volunteerJob", method = RequestMethod.GET)

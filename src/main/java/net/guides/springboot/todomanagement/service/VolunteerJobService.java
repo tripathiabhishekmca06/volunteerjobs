@@ -78,10 +78,12 @@ public class VolunteerJobService implements IVolunteerJobService {
 	}
 
 	@Override
-	public void verifyJob(long id) {
+	public VolunteerJob verifyJob(long id) {
 		
 		VolunteerJob volunteerJob= todoRepository.findById(id).get();
-		 
+		
+		if(volunteerJob.getStatus()>2)
+			return volunteerJob;
    String url =  otpDns +"/v0/token/send";
 
    RestTemplate restTemplate = new RestTemplate();
@@ -125,16 +127,12 @@ public class VolunteerJobService implements IVolunteerJobService {
 	map.put("communicationInfo", communicationInfo);
 		HttpEntity<String> entity = new HttpEntity<>(map.toString(), headers);
 	try {
-		System.out.println("Request for get otp:::"+url);
-		
-		System.out.println("Request json for get otp:::"+map.toString());
 		
 		ResponseEntity<String> response =restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
 		// check response
 		if (response.getStatusCode().is2xxSuccessful()) {
 		    volunteerJob.setStatus(1);
-		    System.out.println("Request response for get otp:::"+response.getStatusCode().toString());
 		    todoRepository.save(volunteerJob);
 		} else {
 		    System.out.println("Request Failed for get otp:::"+url);
@@ -145,7 +143,7 @@ public class VolunteerJobService implements IVolunteerJobService {
 		e.printStackTrace();
 	}
 	
-	
+	return volunteerJob;
 	
 	}
 
@@ -181,15 +179,18 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	}		
 	if (response !=null && response.getStatusCode().is2xxSuccessful()) {
 		volunteerJob.setStatus(3);
-		return true;
+		
 	} else {
 	    System.out.println("Request Failed for post::"+url);
 	    
 	    volunteerJob.setStatus(2);
+	    volunteerJob.setOtpRetryCount(volunteerJob.getOtpRetryCount()+1);
 	}
-	
-	todoRepository.save(volunteerJob);
-	return false;
+	volunteerJob=todoRepository.save(volunteerJob);
+	if(volunteerJob.getStatus()>2)
+	return true;
+	else
+		return false;	
 	}
 
 	@Override
