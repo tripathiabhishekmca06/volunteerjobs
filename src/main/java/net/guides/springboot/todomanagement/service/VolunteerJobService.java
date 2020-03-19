@@ -181,7 +181,7 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	}		
 	if (response !=null && response.getStatusCode().is2xxSuccessful()) {
 		volunteerJob.setStatus(3);
-		return true;
+		
 	} else {
 	    System.out.println("Request Failed for post::"+url);
 	    
@@ -189,7 +189,10 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	    volunteerJob.setOtpRetryCount(volunteerJob.getOtpRetryCount()+1);
 	}
 	todoRepository.save(volunteerJob);
-	return false;
+	if(volunteerJob.getStatus()>2)
+	return true;
+	else
+		return false;	
 	}
 
 	@Override
