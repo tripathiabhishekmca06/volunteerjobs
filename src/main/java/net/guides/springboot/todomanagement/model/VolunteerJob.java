@@ -82,6 +82,13 @@ import javax.persistence.Table;
 	private long primaryPhoneNumber;
 	private long alternativePhoneNumber;
 	private String organisation;
+	private String selfOrganisation;
+	public String getSelfOrganisation() {
+		return selfOrganisation;
+	}
+	public void setSelfOrganisation(String selfOrganisation) {
+		this.selfOrganisation = selfOrganisation;
+	}
 	public String getOrganisation() {
 		return organisation;
 	}

@@ -9,6 +9,16 @@ public class VolunteerJobOtp {
 	private String jobTittle;
 	
 	private String otp;
+	
+	private String otpSend;
+
+	public String getOtpSend() {
+		return otpSend;
+	}
+
+	public void setOtpSend(String otpSend) {
+		this.otpSend = otpSend;
+	}
 
 	public long getId() {
 		return id;

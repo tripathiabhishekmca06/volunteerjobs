@@ -98,7 +98,7 @@ public class TodoController {
 		if(pageSize>100)
 			pageSize=100;
 		
-		Page<VolunteerJob> volunteerJobs = volunteerJobService.findAll(new PageRequest(--pageNo, pageSize));
+		Page<VolunteerJob> volunteerJobs = volunteerJobService.findAllByStatus(4,new PageRequest(--pageNo, pageSize));
 		PagerModel pager = new PagerModel(volunteerJobs.getTotalPages(),volunteerJobs.getNumber(),3);
 		model.put("volunteerJobs", volunteerJobs);
 		ArrayList<Integer> pageIndex= new ArrayList<>();
@@ -199,6 +199,8 @@ public class TodoController {
 
 	@RequestMapping(value = "/verify-volunteerJobOtp", method = RequestMethod.GET)
 	public String verifyJob(@RequestParam long id, ModelMap model) {
+		
+	
 		volunteerJobService.verifyJob(id);
 
 		VolunteerJob volunteerJob = volunteerJobService.getVolunteerJobById(id).get();
@@ -206,15 +208,19 @@ public class TodoController {
 		volunteerJobOtp.setId(volunteerJob.getId());
 		volunteerJobOtp.setJobId(volunteerJob.getJobId());
 		volunteerJobOtp.setJobTittle(volunteerJob.getJobTittle());
+		if(volunteerJob.getStatus()>2)
+		volunteerJobOtp.setOtpSend("1");
 		model.put("volunteerJobOtp", volunteerJobOtp);
 		
 		return "volunteerJobOtp";
+		
 	}
 	
 	
 	@RequestMapping(value = "/verify-volunteerJobOtp", method = RequestMethod.POST)
 	public String verifyJobOTP(@RequestParam long id,@RequestParam String otp) {
-		volunteerJobService.verifyJobOTP(id,otp);
+		boolean verfied=volunteerJobService.verifyJobOTP(id,otp);
+		
 		// service.deleteTodo(id);
 		return "redirect:/volunteerJobs";
 	}

@@ -115,7 +115,7 @@ public class VolunteerJobService implements IVolunteerJobService {
 	tokenValueMap.put("tokenLen", 6);
 	
 	addInfoValue.put("username", "abc@gamil.com");
-	sms.put("id", volunteerJob.getAlternativePhoneNumber());
+	sms.put("id", "naukri");
 	sms.put("name", "deepak");
 
 	fromValue.put("sms", sms);
@@ -125,14 +125,19 @@ public class VolunteerJobService implements IVolunteerJobService {
 	map.put("communicationInfo", communicationInfo);
 		HttpEntity<String> entity = new HttpEntity<>(map.toString(), headers);
 	try {
+		System.out.println("Request for get otp:::"+url);
+		
+		System.out.println("Request json for get otp:::"+map.toString());
+		
 		ResponseEntity<String> response =restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
 		// check response
 		if (response.getStatusCode().is2xxSuccessful()) {
 		    volunteerJob.setStatus(1);
+		    System.out.println("Request response for get otp:::"+response.getStatusCode().toString());
 		    todoRepository.save(volunteerJob);
 		} else {
-		    System.out.println("Request Failed:::"+url);
+		    System.out.println("Request Failed for get otp:::"+url);
 		    
 		}
 	} catch (RestClientException e) {
@@ -145,7 +150,7 @@ public class VolunteerJobService implements IVolunteerJobService {
 	}
 
 	@Override
-	public void verifyJobOTP(long id, String otp) {
+	public boolean verifyJobOTP(long id, String otp) {
 		
 		
 		
@@ -176,18 +181,25 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	}		
 	if (response !=null && response.getStatusCode().is2xxSuccessful()) {
 		volunteerJob.setStatus(3);
+		return true;
 	} else {
-	    System.out.println("Request Failed::"+url);
+	    System.out.println("Request Failed for post::"+url);
 	    
 	    volunteerJob.setStatus(2);
 	}
 	
 	todoRepository.save(volunteerJob);
+	return false;
 	}
 
 	@Override
 	public Page<VolunteerJob> findAll(PageRequest pageRequest) {
 		return todoRepository.findAll(pageRequest);
+	}
+	
+	@Override
+	public Page<VolunteerJob> findAllByStatus(int status,PageRequest pageRequest) {
+		return todoRepository.findByStatus(status,pageRequest);
 	}
 }
 	

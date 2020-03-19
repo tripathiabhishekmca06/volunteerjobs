@@ -29,11 +29,13 @@ public interface IVolunteerJobService {
 
 	void verifyJob(long id);
 
-	void verifyJobOTP(long id, String otp);
+	boolean verifyJobOTP(long id, String otp);
 
 	Page<VolunteerJob> findAll(PageRequest pageRequest);
 
 	
 	Optional<VolunteerJob> getVolunteerJobByJobId(String id);
+
+	Page<VolunteerJob> findAllByStatus(int status, PageRequest pageRequest);
 
 }
