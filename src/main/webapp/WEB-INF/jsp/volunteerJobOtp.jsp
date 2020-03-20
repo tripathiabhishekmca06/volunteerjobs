@@ -83,7 +83,7 @@ function handleForm() {
  window.onload = function() {
 	 
 	if(document.getElementById("obj_otpSend").value=="1"){
-	document.getElementById("otp_header").innerHTML="OTP Verification was successfull";
+	document.getElementById("otp_header").innerHTML="Job is posted successfully and has been sent for verification. <br /> You may receive a call on " +document.getElementById("maskedMobileForOtp").value +". You may contact ******* for any issue";
 	document.getElementById("otpId").disabled=true;
 	
 	document.getElementById("form_otp").classList.add("v_dispNone");
@@ -97,11 +97,11 @@ function handleForm() {
 		{
 		document.getElementById("otp_header").innerHTML="Enter OTP Received on "+document.getElementById("maskedMobileForOtp").value;	
 		if(document.getElementById("otpRetryCount").value=="1"){
-			document.getElementById("otp_header").innerHTML=document.getElementById("otp_header").innerHTML+" (Second Retry)";
+			document.getElementById("otp_header").innerHTML=document.getElementById("otp_header").innerHTML+" (First OTP verfication attempt failed)";
 		}
 		
 		if(document.getElementById("otpRetryCount").value=="2"){
-			document.getElementById("otp_header").innerHTML=document.getElementById("otp_header").innerHTML+" (Third Retry)";
+			document.getElementById("otp_header").innerHTML=document.getElementById("otp_header").innerHTML+" (Second OTP verfication attempt failed)";
 		}
 		
 	

@@ -46,12 +46,6 @@
 						</fieldset>
 						
 						<fieldset class="form-group">
-							<form:label path="organisation" class="required">Organisation</form:label>
-							<form:input path="organisation" type="text" class="form-control"
-								required="required" />
-							<form:errors path="organisation" cssClass="text-warning" />
-						</fieldset>	
-						<fieldset class="form-group">
 							<form:label path="workArea" class="required">Location</form:label>
 							<form:input path="workArea" type="text" class="form-control"
 								required="required" />

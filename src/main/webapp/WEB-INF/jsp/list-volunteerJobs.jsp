@@ -1,7 +1,6 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 
-
 <style>
 .pagination-centered {
 	text-align: center;
@@ -114,8 +113,18 @@
 
  <div class="container volunteer_lisitng">
     <div style='display: flex'>
+	<div class="input-group">
+    <input type="text" class="form-control" placeholder="Search">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+  </div>
 		<a type="button" class="btn btn-primary btn-md" style='margin-left: auto;'  href="/covid19/add-volunteerJob">Post Volunteer Jobs for COVID-19</a>
+	
 	</div>
+	
 	<br>
 	
 						<c:forEach items="${volunteerJobs.content}" var="volunteerJob">
@@ -186,10 +195,27 @@ word-break: break-word;">${volunteerJob.jobTittle}</td>
             </div>
         
            <div class="v_footer s_padding">
-                <a class="danger_btn p_l_0" href="/covid19/delete-volunteerJob?id=${volunteerJob.id}">Delete</a>
+                <%-- <a class="danger_btn p_l_0" href="/covid19/delete-volunteerJob?id=${volunteerJob.id}">Delete</a> --%>
                 <div class="right_align">
+                <c:choose>
+    <c:when test="${volunteerJob.status=='4'}">
+        <a type="button" class="btn btn-warning" href="/covid19/activate-volunteerJob?id=${volunteerJob.id}">Deactivate</a> 
+    </c:when>    
+    <c:otherwise>
+    </c:otherwise>
+</c:choose>
+ 
+                <c:choose>
+    <c:when test="${volunteerJob.status<'4'}">
                     <a type="button" class="btn btn-primary" href="/covid19/activate-volunteerJob?id=${volunteerJob.id}">Activate</a>
-                    <a type="button" href="/covid19/update-volunteerJob?id=${volunteerJob.id}" class="btn btn-success">Update</a>
+    </c:when>    
+    <c:otherwise>
+    </c:otherwise>
+</c:choose>
+                
+                    <a type="button" class="btn btn-success" href="/covid19/update-volunteerJob?id=${volunteerJob.id}" >Update</a>
+                     <a type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want delete this opening ?')" href="/covid19/delete-volunteerJob?id=${volunteerJob.id}">Delete</a>
+
                 </div>
             </div> 
         </div>
@@ -227,5 +253,7 @@ word-break: break-word;">${volunteerJob.jobTittle}</td>
 				</div>
 		
 		</div>
+
+
 
 <%@ include file="common/footer.jspf"%>

@@ -7,11 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "VolunteerJob")public class VolunteerJob {
+@Table(name = "VolunteerJob"
+,
+indexes = {@Index(name = "idx_jobId",  columnList="jobId", unique = true),
+           @Index(name = "idx_status", columnList="status",     unique = false)})
+public class VolunteerJob {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +30,7 @@ import javax.persistence.Table;
 	}
 	@Lob
 	  @Column( length = 1000 )
+@org.hibernate.annotations.Index(name = "search_idx")
 	private String jobSearchTokens;
 	
 	
