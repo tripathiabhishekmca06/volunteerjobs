@@ -59,7 +59,7 @@ public class TodoController {
 		
 	}*/
 	
-	@RequestMapping(value = "/list-volunteerJobs", method = RequestMethod.GET)
+	//@RequestMapping(value = "/list-volunteerJobs", method = RequestMethod.GET)
 	public String showTodos(@RequestParam(defaultValue = "-1", required=false) String  sortOrder,@RequestParam(defaultValue = "", required=false) String  searchTxt,@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
 		model.put("selectedPageSize", 1);
 		model.put("pageSizes", PAGE_SIZES);
@@ -170,14 +170,14 @@ public class TodoController {
 		return "volunteerJob";
 	}
 
-	@RequestMapping(value = "/delete-volunteerJob", method = RequestMethod.GET)
+	//@RequestMapping(value = "/delete-volunteerJob", method = RequestMethod.GET)
 	public String deleteTodo(@RequestParam long id) {
 		volunteerJobService.deleteVolunteerJob(id);
 		// service.deleteTodo(id);
 		return "redirect:/list-volunteerJobs";
 	}
 
-	@RequestMapping(value = "/update-volunteerJob", method = RequestMethod.GET)
+	//@RequestMapping(value = "/update-volunteerJob", method = RequestMethod.GET)
 	public String showUpdateTodoPage(@RequestParam long id, ModelMap model) {
 		VolunteerJob volunteerJob = volunteerJobService.getVolunteerJobById(id).get();
 		model.put("volunteerJob", volunteerJob);
@@ -198,7 +198,7 @@ public class TodoController {
 		return "volunteerJobView";
 	}
 
-	@RequestMapping(value = "/update-volunteerJob", method = RequestMethod.POST)
+	//@RequestMapping(value = "/update-volunteerJob", method = RequestMethod.POST)
 	public String updateTodo(ModelMap model, @Valid VolunteerJob volunteerJob, BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -260,7 +260,7 @@ public class TodoController {
 		return "redirect:/verify-volunteerJobOtp?id="+id;
 	}
 	
-	@RequestMapping(value = "/activate-volunteerJob", method = RequestMethod.GET)
+	//@RequestMapping(value = "/activate-volunteerJob", method = RequestMethod.GET)
 	public String activateJobOTP(@RequestParam long id) {
 		
 	VolunteerJob  volunteerJob= volunteerJobService.getVolunteerJobById(id).get();
@@ -271,7 +271,7 @@ public class TodoController {
 		return "redirect:/list-volunteerJobs";
 	}
 	
-	@RequestMapping(value = "/deactivate-volunteerJob", method = RequestMethod.GET)
+	//@RequestMapping(value = "/deactivate-volunteerJob", method = RequestMethod.GET)
 	public String deactivateJobOTP(@RequestParam long id) {
 		
 	VolunteerJob  volunteerJob= volunteerJobService.getVolunteerJobById(id).get();
