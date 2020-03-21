@@ -156,7 +156,6 @@
               <option value="1">Recently Posted Date</option>
               <option value="2">Oldest Posted</option>
               <option value="3">Active Jobs</option>
-              <option value="4">Inactive Jobs</option>
              </select>
             <div class="input-group" style="margin-left: auto;">
                           <input type="hidden"  placeholder="Search" id="searchTxtToUI" value="${searchTxt}"/>
