@@ -30,7 +30,6 @@ public class VolunteerJob {
 	}
 	@Lob
 	  @Column( length = 1000 )
-@org.hibernate.annotations.Index(name = "search_idx")
 	private String jobSearchTokens;
 	
 	
@@ -53,6 +52,7 @@ public class VolunteerJob {
 	public void setJobSearchTokens(String jobSearchTokens) {
 		this.jobSearchTokens = jobSearchTokens;
 	}
+	@Column( length = 120 )
 	private String jobTittle;
 	private String jobId;
 	private int status;
@@ -98,9 +98,11 @@ public class VolunteerJob {
 	public void setJobId(String jobId) {
 		this.jobId = jobId;
 	}
+	@Column( length = 100 )
 	private String postedBy;
 	private long primaryPhoneNumber;
 	private long alternativePhoneNumber;
+	@Column( length = 100 )
 	private String organisation;
 	private String selfOrganisation;
 	public String getSelfOrganisation() {
@@ -123,12 +125,14 @@ public class VolunteerJob {
 		this.email = email;
 	}
 	@Lob
-	  @Column( length = 300 )
+	  @Column( length = 400 )
 	private String jobDetails;
 	@Lob
-	  @Column( length = 300 )
+	  @Column( length = 100 )
 	private String skills;
+	@Column( length = 80 )
 	private String workArea;
+	@Column( length = 20 )
 	private String Timming;
 	private long minPayScale;
 	public VolunteerJob(String postedBy, long primaryPhoneNumber, long alternativePhoneNumber, String jobDetails, String skills,

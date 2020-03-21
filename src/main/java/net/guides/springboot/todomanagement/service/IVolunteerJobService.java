@@ -38,4 +38,8 @@ public interface IVolunteerJobService {
 
 	Page<VolunteerJob> findAllByStatus(int status, PageRequest pageRequest);
 
+	Page<VolunteerJob> findBySearchToken(String searchToken, PageRequest pageRequest);
+
+	Page<VolunteerJob> findByStatusAndSearchToken(int status, String searchToken, PageRequest pageRequest);
+
 }

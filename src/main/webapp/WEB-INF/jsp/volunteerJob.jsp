@@ -19,10 +19,10 @@
 							<form:errors path="postedBy" cssClass="text-warning" />
 						</fieldset>
 						<fieldset class="form-group">
-							<form:label path="selfOrganisation" class="required">Organisation</form:label>
-							<form:input path="selfOrganisation" type="text" class="form-control"
+							<form:label path="organisation" class="required">Organisation</form:label>
+							<form:input path="organisation" type="text" class="form-control"
 								required="required" />
-							<form:errors path="selfOrganisation" cssClass="text-warning" />
+							<form:errors path="organisation" cssClass="text-warning" />
 						</fieldset>
 						
 						<fieldset class="form-group">
@@ -54,9 +54,9 @@
 						
 						<fieldset class="form-group">
 							<form:label path="jobDetails" class="required">Job Details</form:label>
-							<form:input path="jobDetails" id="jobDetails"  class="form-control"
-								required="required" type="hidden" />
-								 <div id="editableJobDetails" contenteditable="true"></div> 
+							<form:hidden path="jobDetails" id="jobDetails"  class="form-control"
+								required="required"  />
+								 <div id="editableJobDetails" contenteditable="true" required="required"></div> 
 							<form:errors path="jobDetails" cssClass="text-warning" />
 						</fieldset>
 						<fieldset class="form-group">
@@ -121,12 +121,21 @@
 document.getElementById("editableJobDetails").innerHTML = document.getElementById("jobDetails").value; 
 </script>
 <script type="text/javascript">
-document.getElementById("editableJobDetails").addEventListener("input",
+ document.getElementById("editableJobDetails").addEventListener("input",
 		function() {
 	     var editableContent = document.getElementById("editableJobDetails").innerHTML;
 	     document.getElementById("jobDetails").value = editableContent;
-	}, false);
+	}, false); 
 	
+/* 	document.addEventListener("DOMContentLoaded", function(event) {
+$( ".editableJobDetails" ).change(function() {
+	   alert( "Handler for .change() called." ); 
+	 
+	var editableContent = document.getElementById("editableJobDetails").innerHTML;
+    document.getElementById("jobDetails").value = editableContent;
+    
+	});
+	}); */
 	
 	
 	

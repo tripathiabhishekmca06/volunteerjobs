@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +14,7 @@ public interface VolunteerJobRepository extends JpaRepository<VolunteerJob, Long
 
 	Optional<VolunteerJob> findByJobId(String id);
 	Page<VolunteerJob> findByStatus(int status, Pageable pageRequest);
+	Page<VolunteerJob> findByStatusAndJobSearchTokensContaining(int status,String jobSearchTokens, Pageable pageRequest);
+	Page<VolunteerJob> findByJobSearchTokensContaining(String searchToken, Pageable pageRequest);
 
 }

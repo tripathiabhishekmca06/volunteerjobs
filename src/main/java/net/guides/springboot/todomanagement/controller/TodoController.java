@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import net.guides.springboot.todomanagement.model.PagerModel;
+import net.guides.springboot.todomanagement.model.SearchJob;
 import net.guides.springboot.todomanagement.model.VolunteerJob;
 import net.guides.springboot.todomanagement.model.VolunteerJobOtp;
 import net.guides.springboot.todomanagement.service.IVolunteerJobService;
@@ -46,10 +48,19 @@ public class TodoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 	
-
+/*
+	@RequestMapping(value = "/list-volunteerJobs", method = RequestMethod.POST)
+	public String showSearch(ModelMap model, @Valid SearchJob searchJob, BindingResult result) {
+		
+		
+		System.out.println("model:::"+model);
+		System.out.println("inputdata:::"+searchJob.getSearchTokens());
+		return null;
+		
+	}*/
+	
 	@RequestMapping(value = "/list-volunteerJobs", method = RequestMethod.GET)
-	public String showTodos(@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
-		String name = getLoggedInUserName(model);
+	public String showTodos(@RequestParam(defaultValue = "-1", required=false) String  sortOrder,@RequestParam(defaultValue = "", required=false) String  searchTxt,@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
 		model.put("selectedPageSize", 1);
 		model.put("pageSizes", PAGE_SIZES);
 		if(pageNo<1)
@@ -59,7 +70,7 @@ public class TodoController {
 		if(pageSize>100)
 			pageSize=100;
 		
-		Page<VolunteerJob> volunteerJobs = volunteerJobService.findAll(new PageRequest(--pageNo, pageSize));
+		Page<VolunteerJob> volunteerJobs = volunteerJobService.findBySearchToken(searchTxt.toUpperCase(), new PageRequest(--pageNo, pageSize,getSortingValue(sortOrder)));
 		PagerModel pager = new PagerModel(volunteerJobs.getTotalPages(),volunteerJobs.getNumber(),3);
 		model.put("volunteerJobs", volunteerJobs);
 		ArrayList<Integer> pageIndex= new ArrayList<>();
@@ -81,14 +92,29 @@ public class TodoController {
 		else
 			model.put("prePageIndex", (pager.getStartPage()-1));
 		
-		
-		
+		model.put("searchTxt", searchTxt);
+
+		model.put("sortOrder", sortOrder);
+
+		model.addAttribute("searchJob", new SearchJob());
 		return "list-volunteerJobs";
+	}
+
+	private Sort getSortingValue(String sortBy) {
+		if(sortBy.equals("2"))
+		return	Sort.by("postedBy").descending();
+		if(sortBy.equals("1"))
+			return	Sort.by("postedBy").ascending();
+		if(sortBy.equals("3"))
+			return Sort.by("status").descending();
+		if(sortBy.equals("4"))
+			return Sort.by("status").ascending();
+		
+		return Sort.by("postedBy").ascending();
 	}
 	
 	@RequestMapping(value = "/volunteerJobs", method = RequestMethod.GET)
-	public String volunteerJobs(@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
-		String name = getLoggedInUserName(model);
+	public String volunteerJobs(@RequestParam(defaultValue = "-1", required=false) String  sortOrder,@RequestParam(defaultValue = "", required=false) String  searchTxt,@RequestParam(defaultValue = "1", required=false) Integer pageNo,@RequestParam(defaultValue = "10", required=false) Integer pageSize,ModelMap model) {
 		model.put("selectedPageSize", 1);
 		model.put("pageSizes", PAGE_SIZES);
 		if(pageNo<1)
@@ -98,7 +124,7 @@ public class TodoController {
 		if(pageSize>100)
 			pageSize=100;
 		
-		Page<VolunteerJob> volunteerJobs = volunteerJobService.findAllByStatus(4,new PageRequest(--pageNo, pageSize));
+		Page<VolunteerJob> volunteerJobs = volunteerJobService.findByStatusAndSearchToken(4,searchTxt.toUpperCase(), new PageRequest(--pageNo, pageSize,getSortingValue(sortOrder)));
 		PagerModel pager = new PagerModel(volunteerJobs.getTotalPages(),volunteerJobs.getNumber(),3);
 		model.put("volunteerJobs", volunteerJobs);
 		ArrayList<Integer> pageIndex= new ArrayList<>();
@@ -119,6 +145,12 @@ public class TodoController {
 			model.put("prePageIndex", (pager.getStartPage()));
 		else
 			model.put("prePageIndex", (pager.getStartPage()-1));
+		
+		model.put("searchTxt", searchTxt);
+
+		model.put("sortOrder", sortOrder);
+
+		model.addAttribute("searchJob", new SearchJob());
 		return "list-volunteerJobsForExt";
 	}
 

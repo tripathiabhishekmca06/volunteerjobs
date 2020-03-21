@@ -49,8 +49,7 @@ public class VolunteerJobService implements IVolunteerJobService {
 
 	@Override
 	public void updateVolunteerJob(VolunteerJob todo) {
-		todo.setJobSearchTokens(todo.getJobTittle()+" , "+ todo.getJobId() +" , "+ todo.getWorkArea()+" , "+ todo.getJobDetails() +" , "+ todo.getOrganisation());
-		todoRepository.save(todo);
+		todo.setJobSearchTokens((todo.getJobTittle()+" , "+ todo.getJobId() +" , "+ todo.getWorkArea()+" , "+ todo.getOrganisation()+" , "+ todo.getSkills() +" , "+ todo.getJobDetails()).toUpperCase() );	todoRepository.save(todo);
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class VolunteerJobService implements IVolunteerJobService {
 	@Override
 	public VolunteerJob saveVolunteerJob(VolunteerJob todo) {
 		
-		todo.setJobSearchTokens(todo.getJobTittle()+" , "+ todo.getJobId() +" , "+ todo.getWorkArea()+" , "+ todo.getJobDetails() +" , "+ todo.getOrganisation());
+		todo.setJobSearchTokens((todo.getJobTittle()+" , "+ todo.getJobId() +" , "+ todo.getWorkArea()+" , "+ todo.getOrganisation()+" , "+ todo.getSkills() +" , "+ todo.getJobDetails()).toUpperCase() );
 		return todoRepository.save(todo);
 	}
 
@@ -201,6 +200,16 @@ VolunteerJob volunteerJob= todoRepository.findById(id).get();
 	@Override
 	public Page<VolunteerJob> findAllByStatus(int status,PageRequest pageRequest) {
 		return todoRepository.findByStatus(status,pageRequest);
+	}
+
+	@Override
+	public Page<VolunteerJob> findBySearchToken(String searchToken, PageRequest pageRequest) {
+		return todoRepository.findByJobSearchTokensContaining(searchToken, pageRequest);
+	}
+
+	@Override
+	public Page<VolunteerJob> findByStatusAndSearchToken(int status, String searchToken, PageRequest pageRequest) {
+		return todoRepository.findByStatusAndJobSearchTokensContaining(status,searchToken, pageRequest);
 	}
 }
 	

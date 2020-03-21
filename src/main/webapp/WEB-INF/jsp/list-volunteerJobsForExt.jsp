@@ -1,7 +1,6 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 
-
 <style>
 .pagination-centered {
 	text-align: center;
@@ -16,7 +15,6 @@
 	pointer-events: none;
 }
 </style>
-
 <style>
     .p_0 {
         padding: 0;
@@ -106,21 +104,82 @@
          overflow: hidden;
          text-overflow: ellipsis;
      }
+      .flex {
+        display: flex;
+      }
+      .flex_important {
+        display: flex;
+      }
+      .mlr10 {
+        margin: 0 10px;
+      }
+      @media only screen and (max-width: 600px) {
+        .flex {
+          display: block;
+        }
+        .mm10 {
+          margin: 10px auto;
+        }
+        .mlr10 {
+          margin: 0 10px 0 0;
+        }
+      }
 </style>
 
 
-<div class="container">
+<div class="container" id="main">
 
 
 
  <div class="container volunteer_lisitng">
-    <div style='display: flex'>
-		<a type="button" class="btn btn-primary btn-md" style='margin-left: auto;'  href="/covid19/add-volunteerJob">Post Volunteer Openings for COVID-19</a>
-	</div>
-	<br>
+ 
+  <div class="flex">
+          <a type="button" class="btn btn-primary btn-md mm10" href="/covid19/add-volunteerJob">Post Volunteer Jobs for COVID-19</a>
+          <div class="mm10 flex_important" style="margin-left: auto;">
+      <!--       <div class="dropdown mlr10">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Sort By
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+                <li><a onclick="sortPage(1)">Recently Posted Date</a></li>
+                <li><a onclick="sortPage(1)">Oldest Posted</a></li>
+                <li><a onclick="sortPage(2)">Live Jobs</a></li>
+                <li><a onclick="sortPage(2)">Inactive Jobs</a></li>
+                <li><a onclick="sortPage(2)">Verified but not live</a></li>
+                <li><a onclick="sortPage(2)">Status-active</a></li>
+              </ul>
+            </div> -->
+            
+            <select class="form-control  mlr10" style="width:150px;" onchange="sortPage(this)" id="sortOrderDDL">
+              <option value="-1">Sort By</option>
+              <option value="1">Recently Posted Date</option>
+              <option value="2">Oldest Posted</option>
+              <option value="3">Active Jobs</option>
+              <option value="4">Inactive Jobs</option>
+             </select>
+            <div class="input-group" style="margin-left: auto;">
+                          <input type="hidden"  placeholder="Search" id="searchTxtToUI" value="${searchTxt}"/>
+                          <input type="hidden"  placeholder="Search" id="sortByToUI" value="${sortOrder}"/>
+              <input type="text" class="form-control" placeholder="Search" id="searchTxt"/>
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="signin-login-google-button">
+                  <i class="glyphicon glyphicon-search" id="searchIcon"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 	
+	<br>
+	 
+	 
+	 
+	 
+	 
 						<c:forEach items="${volunteerJobs.content}" var="volunteerJob">
 
+				
 				<div class="v_card">
             <div class="v_header s_padding">
                 <div class="row">
@@ -168,13 +227,14 @@
                 </div>
             </div>
         
-    <!--         <div class="v_footer s_padding">
-                <a class="danger_btn p_l_0">Delete</a>
+           <div class="v_footer s_padding">
+                <%-- <a class="danger_btn p_l_0" href="/covid19/delete-volunteerJob?id=${volunteerJob.id}">Delete</a> --%>
                 <div class="right_align">
-                    <button type="button" class="btn btn-primary">Activate</button>
-                    <button type="button" class="btn btn-success">Update</button>
+
+ 
+   
                 </div>
-            </div> -->
+            </div> 
         </div>
 					</c:forEach>
         
@@ -210,9 +270,54 @@
 				</div>
 		
 		</div>
-	
-	
+
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      crossorigin="anonymous"
+    ></script>
+      <script>
+/*       $(".dropdown-toggle").dropdown();
+ */    </script>
+<script type="text/javascript">
+<!--
+
+//-->
+
+ document.addEventListener("DOMContentLoaded", function(event) {
+$("#signin-login-google-button").click(function(event){
+	window.location.href = "/covid19/volunteerJobs?searchTxt="+document.getElementById("searchTxt").value+"&sortOrder="+document.getElementById("sortByToUI").value;;
+	});
+
+$("#searchTxt").keypress(function(e) {
+
+    if(e.which == 13) {
+        e.preventDefault();
+        $("#signin-login-google-button").click();
+     }
+});
 
 
+ });
+ 
+ 
+   window.onload=function() {
+	   document.getElementById("searchTxt").value=document.getElementById("searchTxtToUI").value;
+	   if(document.getElementById("sortByToUI").value=="" || document.getElementById("sortByToUI").value=="-1")
+		   document.getElementById("sortByToUI").value=0; 
+	   
+	   
+	   document.getElementById("sortOrderDDL").selectedIndex = document.getElementById("sortByToUI").value;
 
+	   
+	 }  
+
+   function sortPage(sortByDDL)
+   {
+		window.location.href = "/covid19/volunteerJobs?searchTxt="+document.getElementById("searchTxt").value+"&sortOrder="+sortByDDL.value;
+
+   }
+   
+</script>
 <%@ include file="common/footer.jspf"%>
