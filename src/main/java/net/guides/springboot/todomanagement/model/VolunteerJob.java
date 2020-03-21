@@ -7,15 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "VolunteerJob"
-,
-indexes = {@Index(name = "idx_jobId",  columnList="jobId", unique = true),
-           @Index(name = "idx_status", columnList="status",     unique = false)})
+@Table(name = "VolunteerJob")
 public class VolunteerJob {
 
 	@Id
