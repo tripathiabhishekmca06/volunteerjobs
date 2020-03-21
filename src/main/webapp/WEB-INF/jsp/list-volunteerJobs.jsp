@@ -228,7 +228,6 @@
             </div>
         
            <div class="v_footer s_padding">
-                <%-- <a class="danger_btn p_l_0" href="/covid19/delete-volunteerJob?id=${volunteerJob.id}">Delete</a> --%>
                 <div class="right_align">
                 <c:choose>
     <c:when test="${volunteerJob.status=='4'}">
@@ -249,11 +248,14 @@
                     <a type="button" class="btn btn-success" href="/covid19/update-volunteerJob?id=${volunteerJob.id}" >Update</a>
 <%--                      <a type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want delete this opening ?')" href="/covid19/delete-volunteerJob?id=${volunteerJob.id}">Delete</a>
  --%>
-      <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" >Delete</a>
+      <a type="button" class="deleleModelIdcss btn btn-danger" data-id="/covid19/delete-volunteerJob?id=${volunteerJob.id}"  data-toggle="modal"  data-target="#myModal" id="deleleModelId">Delete</a>
                 </div>
             </div> 
         </div>
 					</c:forEach>
+					
+		<input type="hidden" id="deleteAction" />
+					
         
         
     </div>
@@ -306,6 +308,13 @@
 $("#signin-login-google-button").click(function(event){
 	window.location.href = "/covid19/list-volunteerJobs?searchTxt="+document.getElementById("searchTxt").value+"&sortOrder="+document.getElementById("sortByToUI").value;;
 	});
+	
+$(document).on("click", ".deleleModelIdcss", function () {
+	
+	document.getElementById("deleteAction").value=$(this).data('id');
+	
+	
+});
 
 $("#searchTxt").keypress(function(e) {
 
@@ -314,6 +323,12 @@ $("#searchTxt").keypress(function(e) {
         $("#signin-login-google-button").click();
      } 
 });
+
+
+ $("#deleteJob_modal").click(function(e) {
+	 window.location.href=document.getElementById("deleteAction").value;
+	
+}); 
 
 
  });
@@ -335,6 +350,10 @@ $("#searchTxt").keypress(function(e) {
 		window.location.href = "/covid19/list-volunteerJobs?searchTxt="+document.getElementById("searchTxt").value+"&sortOrder="+sortByDDL.value;
 
    }
+
+   
+   
+   
    
 </script>
 <%@ include file="common/footer.jspf"%>
