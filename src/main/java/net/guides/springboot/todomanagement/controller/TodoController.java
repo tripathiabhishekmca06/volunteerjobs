@@ -271,6 +271,17 @@ public class TodoController {
 		return "redirect:/list-volunteerJobs";
 	}
 	
+	@RequestMapping(value = "/deactivate-volunteerJob", method = RequestMethod.GET)
+	public String deactivateJobOTP(@RequestParam long id) {
+		
+	VolunteerJob  volunteerJob= volunteerJobService.getVolunteerJobById(id).get();
+	volunteerJob.setStatus(0);
+	volunteerJobService.updateVolunteerJob(volunteerJob);
+		
+		// service.deleteTodo(id);
+		return "redirect:/list-volunteerJobs";
+	}
+	
 	
 	 @ExceptionHandler(NoHandlerFoundException.class)
 	    public String handle(Exception ex) {
@@ -282,5 +293,7 @@ public class TodoController {
 	        return "redirect:/volunteerJobs";
 
 	    }
+	    
+	    
 	
 }

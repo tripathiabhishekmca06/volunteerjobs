@@ -231,7 +231,7 @@
                 <div class="right_align">
                 <c:choose>
     <c:when test="${volunteerJob.status=='4'}">
-        <a type="button" class="btn btn-warning" href="/covid19/activate-volunteerJob?id=${volunteerJob.id}">Deactivate</a> 
+        <a type="button" class="btn btn-warning" href="/covid19/deactivate-volunteerJob?id=${volunteerJob.id}">Deactivate</a> 
     </c:when>    
     <c:otherwise>
     </c:otherwise>
